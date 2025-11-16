@@ -16,7 +16,7 @@ function Header() {
   return (
     <header className={isScrolled ? 'scrolled' : ''}>
       <nav className="container">
-        <div className="logo">Earl-Felix Tetteh</div>
+        <div className="logo">Earl-Felix Tetteh Teye</div>
         <ul className="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
