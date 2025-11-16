@@ -1,13 +1,589 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>earl-felix-portfolio</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earl-Felix Tetteh - IT Professional & Software Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #764ba2;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #764ba2;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .contact-info h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #764ba2;
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #764ba2;
+            border-radius: 50%;
+        }
+
+        .experience-header {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .job-title {
+            color: #764ba2;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .company {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .experience-details ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .experience-details li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .experience-details li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+        }
+
+        /* Education & Certifications */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-item, .cert-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .education-item h3, .cert-item h3 {
+            color: #764ba2;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #667eea;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .education-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Earl-Felix Tetteh</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Earl-Felix Tetteh</h1>
+            <p>IT Professional & Software Developer</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> teyeearl@gmail.com</p>
+                    <p><strong>Phone:</strong> 0272558664 / 0501430075</p>
+                    <p><strong>Location:</strong> Accra, Ghana</p>
+                    <p><strong>LinkedIn:</strong> <a href="#" style="color: #764ba2;">LinkedIn Profile</a></p>
+                    <p><strong>GitHub:</strong> <a href="#" style="color: #764ba2;">GitHub Profile</a></p>
+                </div>
+                <div class="about-text">
+                    <p>Detail-oriented IT professional with 6+ years of experience in IT support, software development, and system administration. Proven expertise in managing IT infrastructure, troubleshooting hardware/software issues, and implementing cybersecurity protocols.</p>
+                    
+                    <p>Skilled in providing technical support, training non-technical users, and optimizing system performance. Adept at collaborating with cross-functional teams to deliver technology solutions that align with organizational goals.</p>
+                    
+                    <p>Passionate about leveraging technology to empower individuals and communities through digital literacy. Active member of the MAYEKOO and KETSA Foundation, committed to continuous learning and staying updated with emerging technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>IT Infrastructure & Network Management</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Hardware Installation</span>
+                        <span class="skill-tag">Software Configuration</span>
+                        <span class="skill-tag">Network Administration</span>
+                        <span class="skill-tag">Active Directory</span>
+                        <span class="skill-tag">System Maintenance</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Technical Support & Security</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Troubleshooting</span>
+                        <span class="skill-tag">Help Desk Support</span>
+                        <span class="skill-tag">Cybersecurity</span>
+                        <span class="skill-tag">Data Protection</span>
+                        <span class="skill-tag">Backup & Recovery</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Programming & Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">Visual Basic</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Automation Scripting</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Cloud & System Administration</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AWS Cloud Services</span>
+                        <span class="skill-tag">Microsoft Office Suite</span>
+                        <span class="skill-tag">Learning Management Systems</span>
+                        <span class="skill-tag">System Administration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="job-title">Software Systems Analyst/Developer</div>
+                        <div class="company">Spagad Technologies Limited</div>
+                        <div class="date">April 2024 – Present</div>
+                    </div>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Designed, developed, and deployed software applications to improve business operations and user experience</li>
+                            <li>Provided technical support, ensuring seamless system performance and minimizing downtime</li>
+                            <li>Conducted user training to enhance digital literacy and system adoption</li>
+                            <li>Implemented security best practices, optimizing data protection and system resilience</li>
+                            <li>Collaborated with teams to develop innovative digital solutions aligned with business needs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="job-title">IT Support (Part-time)</div>
+                        <div class="company">Asah Maker Space</div>
+                        <div class="date">November 2023 – April 2024</div>
+                    </div>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Delivered training programs on robotics, 3D printing, and digital tools to enhance tech education</li>
+                            <li>Managed IT infrastructure, ensuring smooth operations of hardware, software, and networks</li>
+                            <li>Provided technical support to trainers and learners, troubleshooting IT-related issues</li>
+                            <li>Assisted in developing digital training materials, ensuring accessibility and effectiveness</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="job-title">I.T Support</div>
+                        <div class="company">GOIL PLC</div>
+                        <div class="date">October 2020 – January 2024</div>
+                    </div>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Provided first-line IT support to 30+ users with a 95% first-call resolution rate</li>
+                            <li>Developed and implemented automated solutions reducing resolution time by 50%</li>
+                            <li>Established robust backup and disaster recovery protocols</li>
+                            <li>Collaborated with senior IT staff on infrastructure upgrades and optimization</li>
+                            <li>Created technical documentation and training materials for end users</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="job-title">Intern</div>
+                        <div class="company">Global Startup Ecosystem</div>
+                        <div class="date">April 2022 – June 2022</div>
+                    </div>
+                    <div class="experience-details">
+                        <ul>
+                            <li>Researched industry trends and presented findings to the team</li>
+                            <li>Organized a webinar on Technology Trends in Ghana, attracting 50+ attendees</li>
+                            <li>Streamlined team collaboration using Google Workspace applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="container">
+            <h2 class="section-title">Education & Certifications</h2>
+            <div class="education-grid">
+                <div class="education-item">
+                    <h3>Bachelor of Science in Mathematics</h3>
+                    <p><strong>Kwame Nkrumah University of Science and Technology</strong></p>
+                    <p>Kumasi, Ghana | 2015-2019</p>
+                </div>
+                <div class="cert-item">
+                    <h3>ALX Software Engineering Certificate</h3>
+                    <p>September 2024</p>
+                </div>
+                <div class="cert-item">
+                    <h3>Google I.T Automation with Python</h3>
+                    <p>Coursera | June 2023</p>
+                </div>
+                <div class="cert-item">
+                    <h3>ALX-T Cloud DevOps Engineer</h3>
+                    <p>Udacity Nanodegree | September 2022</p>
+                </div>
+                <div class="cert-item">
+                    <h3>Google I.T Support</h3>
+                    <p>Coursera | August 2022</p>
+                </div>
+                <div class="cert-item">
+                    <h3>AWS Cloud Practitioner</h3>
+                    <p>April 2022</p>
+                </div>
+                <div class="cert-item">
+                    <h3>Foundations of Cybersecurity</h3>
+                    <p>Coursera | July 2023</p>
+                </div>
+                <div class="cert-item">
+                    <h3>Information Systems Auditing</h3>
+                    <p>Controls and Assurance | November 2020</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="social-links">
+                <a href="mailto:teyeearl@gmail.com">Email</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">GitHub</a>
+            </div>
+            <p>&copy; 2025 Earl-Felix Tetteh. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
 </html>
