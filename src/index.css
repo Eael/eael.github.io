@@ -347,6 +347,10 @@ footer {
     .education-grid {
         grid-template-columns: 1fr;
     }
+    
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
 }
 /* Projects Section */
 .project-grid {
